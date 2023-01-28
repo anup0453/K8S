@@ -1,0 +1,21 @@
+apiVersion : v1
+kind : Pod
+metadata :
+  name : emplt-dir
+  labels :
+   volume : c-c
+spec :
+ containers :
+  - name : v01
+    image : nginx
+    volumeMounts :
+     - name : pod-volume
+       mountPath : tmp/v01
+  - name : v02
+    image : nginx
+    volumeMounts :
+     - name : pod-volume
+       mountPath : tmp/v02
+ volumes :
+  - name : pod-volume
+    emptyDir : {}
