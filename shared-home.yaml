@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-pod
+spec:
+  containers:
+  - name: my-container
+    image: jira-docker-test.container.siemens-energy.com/amazon-utility-image
+    command:
+      - "/bin/sh"
+      - "-c"
+      - "while true; do sleep 1; done"
+    resources:
+      limits:
+        cpu: "0.5" # example limit for CPU
+        memory: "512Mi" # example limit for memory
+      requests:
+        cpu: "0.25" # example request for CPU
+        memory: "256Mi" # example request for memory
+    volumeMounts:
+      - name: shared-home
+        mountPath: "/var/atlassian/application-data/shared-home" # Mounting path for shared home
+  imagePullSecrets:
+    - name: test
+  volumes:
+    - name: shared-home
+      persistentVolumeClaim:
+        claimName: jiradc-devjira-pvc
